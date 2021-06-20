@@ -6,8 +6,33 @@
 <meta charset="ISO-8859-1">
 <title>Curso Jsp</title>
 </head>
-<body>
 <h1>Bem vindo ao curso jsp</h1>
-<% out.print("seu sucesso garantido"); %>
+<body>
+<h3 style="color: red;">${msg}</h3>
+ <form action="ServletLogin" method="post">
+<table>
+<tr>
+<td><label>Login</label></td>
+<td> 
+ <input type="text" name="login" placeholder="login" >
+</td>
+</tr>
+
+<tr>
+<td><label>senha</label></td>
+<td>
+ <input type="password" name="password" placeholder="password" >
+</td>
+</tr>
+
+<tr>
+<td/>
+<td>
+ <input type="submit" value="login">
+</td>
+</tr>
+
+</table>
+ </form>
 </body>
 </html>
