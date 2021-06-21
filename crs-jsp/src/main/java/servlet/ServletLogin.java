@@ -26,23 +26,41 @@ public class ServletLogin extends HttpServlet {
    //recebe os dados enviados por  um formulário
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//pega os parametros da tela
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-       
-		//se login e password é diferente de vazio e nulo uma condição
-		if(login != null && !login.isEmpty() && password != null && password.isEmpty()) {
+		String url = request.getParameter("url"); //pra definir a url
 		
-		ModelLogin modelLogin = new ModelLogin();//objeto de classe instaciado
-		modelLogin.setLogin(login);//vai passar os dados que foram
-		modelLogin.setPassword(password);//recebios acima por parametro
-		//se a condição foi feita vai por no objeto e continuar a auth
 		
-		}else {//vai dispachar pra mesma tela se n informar login e a senha
+		if (login != null && !login.isEmpty() && password != null && !password.isEmpty()) {
+			
+			ModelLogin modelLogin = new ModelLogin();
+			modelLogin.setLogin(login);
+			modelLogin.setPassword(password);
+			
+			if (modelLogin.getLogin().equals("admin") 
+					&& modelLogin.getPassword().equals("admin")) {/*Deu certo o  login*/
+				
+				request.getSession().setAttribute("usuario", modelLogin);/*Coloca o user na sessao*/
+				
+				if (url == null || url.equals("null")) { //se url for nul
+					url = "principal/principal.jsp";//deu certo o login a url deu null pego o link e vai dispachado pra tela principal
+				}
+				RequestDispatcher redirecionar = request.getRequestDispatcher(url);
+				redirecionar.forward(request, response); //dispacha pra url se der certo a session
+				
+			}else {
+				RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp");
+				request.setAttribute("msg", "Informe o login e senha corretamente!");
+				redirecionar.forward(request, response); //caso escreva errado
+			}
+			
+		}else { //caso escreva nada no login
 			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
-			request.setAttribute("msg", "Informe o Login e senha corretamente!");
+			request.setAttribute("msg", "Informe o login e senha corretamente!");
 			redirecionar.forward(request, response);
 		}
+		
+	}
+	
 	}
 
-}
