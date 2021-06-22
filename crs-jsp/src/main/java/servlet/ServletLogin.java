@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
 //o chamado controller que são as servlet ou ServletLoginController
-@WebServlet("/ServletLogin")//mapeamento da url que vem da tela
+@WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"})//mapeamento da url que vem da tela
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,10 +40,10 @@ public class ServletLogin extends HttpServlet {
 			if (modelLogin.getLogin().equals("admin") 
 					&& modelLogin.getPassword().equals("admin")) {/*Deu certo o  login*/
 				
-				request.getSession().setAttribute("usuario", modelLogin);/*Coloca o user na sessao*/
+				request.getSession().setAttribute("usuario", modelLogin.getLogin());/*Coloca o user na sessao*/
 				
-				if (url == null || url.equals("null")) { //se url for nul
-					url = "principal/principal.jsp";//deu certo o login a url deu null pego o link e vai dispachado pra tela principal
+				if (url == null || url.equals("null")) { //se a url vir nula
+					url = "principal/principal.jsp";//vai por o link principal do sistema página inicial
 				}
 				RequestDispatcher redirecionar = request.getRequestDispatcher(url);
 				redirecionar.forward(request, response); //dispacha pra url se der certo a session

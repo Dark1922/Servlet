@@ -1,0 +1,28 @@
+CREATE DATABASE "crs-jsp"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+
+CREATE TABLE public.model_login
+(
+    login character varying(200) COLLATE pg_catalog."default",
+    password character varying(200) COLLATE pg_catalog."default",
+    CONSTRAINT login_unique UNIQUE (login)
+        INCLUDE(login)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.model_login
+    OWNER to postgres;
+    
+    INSERT INTO public.model_login(
+	login, password)
+	VALUES ('admin', 'admin');
+    
+    
