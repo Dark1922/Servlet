@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import dao.DAOLoginRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,6 +15,9 @@ import model.ModelLogin;
 @WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"})//mapeamento da url que vem da tela
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private DAOLoginRepository daoLoginRepository = new DAOLoginRepository();
+	
 
 	public ServletLogin() {
 
@@ -30,15 +34,15 @@ public class ServletLogin extends HttpServlet {
 		String password = request.getParameter("password");
 		String url = request.getParameter("url"); //pra definir a url
 		
-		
+		try {
 		if (login != null && !login.isEmpty() && password != null && !password.isEmpty()) {
 			
-			ModelLogin modelLogin = new ModelLogin();
+			ModelLogin modelLogin =  new ModelLogin();
 			modelLogin.setLogin(login);
 			modelLogin.setPassword(password);
 			
-			if (modelLogin.getLogin().equals("admin") 
-					&& modelLogin.getPassword().equals("admin")) {/*Deu certo o  login*/
+			//passa o dao login aqui pegando os dados do password e login do banco de dados
+			if (daoLoginRepository.validarAutenticacao(modelLogin)) {/*Deu certo o  login*/
 				
 				request.getSession().setAttribute("usuario", modelLogin.getLogin());/*Coloca o user na sessao*/
 				
@@ -60,6 +64,12 @@ public class ServletLogin extends HttpServlet {
 			redirecionar.forward(request, response);
 		}
 		
+		}catch(Exception e) {
+			e.printStackTrace();
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redirecionar.forward(request, response);
+		}
 	}
 	
 	}
