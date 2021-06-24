@@ -60,8 +60,8 @@ input {
 <h5>Bem vindo ao curso jsp</h5>
 <body>
 	<h4 class="msg">${msg}</h4>
-
-	<form action="ServletLogin" method="post"
+<!-- qlq problema que tenha no contexto isso vai corrigir pra gente request.getContextPath -->
+	<form action="<%= request.getContextPath() %>/ServletLogin" method="post"
 		class="row g-3 needs-validation" novalidate>
 		<!-- qnd a tag é value tem que por o = pra imprimir o valor que está dentro -->
 

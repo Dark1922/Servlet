@@ -8,7 +8,7 @@
 						<div class="pcoded-inner-navbar main-menu">
 							<div class="">
 								<div class="main-menu-header">
-									<img class="img-80 img-radius" src="assets/images/avatar-4.jpg"
+									<img class="img-80 img-radius" src="<%= request.getContextPath() %>/assets/images/avatar-4.jpg"
 										alt="User-Profile-Image">
 									<div class="user-details">
 										<span id="more-details"><%= session.getAttribute("usuario") %><i
@@ -21,7 +21,7 @@
 										<li class="more-details"><a href="user-profile.html"><i
 												class="ti-user"></i>View Profile</a> <a href="#!"><i
 												class="ti-settings"></i>Settings</a> <a
-											href="ServletLogin?acao=logout"><i
+											href="<%= request.getContextPath() %>/ServletLogin?acao=logout"><i
 												class="ti-layout-sidebar-left"></i>Logout</a></li>
 									</ul>
 								</div>
@@ -50,12 +50,13 @@
 											class="ti-layout-grid2-alt"></i></span> <span class="pcoded-mtext"
 										data-i18n="nav.basic-components.main">Components</span> <span
 										class="pcoded-mcaret"></span>
-								</a>
+								</a><!--  request.getContextPath() indenprende daonde ele esteja ele vai abrir o usuario -->
 									<ul class="pcoded-submenu">
-										<li class=" "><a href="accordion.html"
+										<li class=" ">
+										<a href="<%= request.getContextPath() %>/principal/usuario.jsp"
 											class="waves-effect waves-dark"> <span
 												class="pcoded-micon"><i class="ti-angle-right"></i></span> <span
-												class="pcoded-mtext" data-i18n="nav.basic-components.alert">Accordion</span>
+												class="pcoded-mtext" data-i18n="nav.basic-components.alert">Usuário</span>
 												<span class="pcoded-mcaret"></span>
 										</a></li>
 										<li class=" "><a href="breadcrumb.html"
