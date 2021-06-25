@@ -47,39 +47,47 @@
 													<div class="card-block">
 
 
-														<form class="form-material">
+														<form class="form-material" method="post"
+															action="<%=request.getContextPath()%>/ServletUsuarioController">
 
 															<div class="form-group form-default">
-																<input type="text" name="footer-email"
-																	class="form-control" readonly disabled> <span
-																	class="form-bar"></span> <label class="float-label">id</label>
+																<input type="text" name="id" class="form-control"
+												readonly disabled value="${modelLogin.id}"> <span class="form-bar"></span>
+																<label class="float-label">id</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="text" name="footer-email"
-																	class="form-control" required="required"> <span
+														<input type="text" name="nome" id="nome"
+																	class="form-control" required="required" value="${modelLogin.nome}"> <span
 																	class="form-bar"></span> <label class="float-label">Nome</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="text" name="footer-email"
-																	class="form-control" required="required"> <span
-																	class="form-bar"></span> <label class="float-label">Email</label>
+																<input type="email" name="email" id="email"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.email}"> <span class="form-bar"></span>
+																<label class="float-label">Email</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="password" name="footer-email"
+																<input type="text" name="login" id="login" value="${modelLogin.login}"
 																	class="form-control" required="required"> <span
-																	class="form-bar"></span> <label class="float-label">Password</label>
+																	class="form-bar"></span> <label class="float-label">Login</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="password" name="password" id="password"
+																	class="form-control" required="required"
+																	autocomplete="off" value="${modelLogin.password}"> <span class="form-bar"></span>
+																<label class="float-label">Password</label>
 															</div>
 
-															<button class="btn btn-primary waves-effect waves-light">Primary
-																Button</button>
-															<button class="btn btn-success waves-effect waves-light">Success
-																Button</button>
-															
-														
-															<button class="btn btn-danger waves-effect waves-light">Danger
-																Button</button>
-															
-															
+															<button class="btn btn-primary waves-effect waves-light">Novo
+															</button>
+															<button class="btn btn-success waves-effect waves-light">Salvar
+															</button>
+
+
+															<button class="btn btn-danger waves-effect waves-light">Excluir
+															</button>
+
+
 														</form>
 													</div>
 												</div>
