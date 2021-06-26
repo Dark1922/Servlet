@@ -50,11 +50,13 @@
 														<form class="form-material" method="post"
 															action="<%=request.getContextPath()%>/ServletUsuarioController">
 
-															<div class="form-group form-default">
-																<input type="text" name="id" class="form-control"
-												readonly disabled value="${modelLogin.id}"> <span class="form-bar"></span>
-																<label class="float-label">id</label>
-															</div>
+															<input type="hidden" name="acao" id="acao" value="">
+          												 
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="id" id="id" class="form-control"  readonly="readonly" disabled value="${modolLogin.id}">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">ID:</label>
+                                                            </div>
 															<div class="form-group form-default">
 														<input type="text" name="nome" id="nome"
 																	class="form-control" required="required" value="${modelLogin.nome}"> <span

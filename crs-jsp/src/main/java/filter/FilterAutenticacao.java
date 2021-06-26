@@ -70,19 +70,22 @@ public class FilterAutenticacao implements Filter {// requisitado ou filtrado pr
 
 			} else {// se não vai deixar redirecionar se logou
 				chain.doFilter(request, response);
-				connection.commit(); // deu tudo certo, ent comita as alterações no banco de dados
 			}
+			connection.commit(); // deu tudo certo, ent comita as alterações no banco de dados
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
+			
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
 			request.setAttribute("msg", e.getMessage());
 			redirecionar.forward(request, response);
 
 			try {
 				connection.rollback();
+				
 			} catch (SQLException e1) {
+				
 				e1.printStackTrace();
 			}
 		}
