@@ -94,9 +94,9 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div>  
 									</div>
-
+                                    <span style="color:green;">${ok}</span>
 								</div>
 								<!-- Page-body end -->
 							</div>

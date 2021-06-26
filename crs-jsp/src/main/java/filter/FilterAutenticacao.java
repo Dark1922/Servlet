@@ -71,7 +71,7 @@ public class FilterAutenticacao implements Filter {// requisitado ou filtrado pr
 			} else {// se não vai deixar redirecionar se logou
 				chain.doFilter(request, response);
 			}
-			connection.commit(); // deu tudo certo, ent comita as alterações no banco de dados
+		connection.commit(); // deu tudo certo, ent comita as alterações no banco de dados
 
 		} catch (Exception e) {
 

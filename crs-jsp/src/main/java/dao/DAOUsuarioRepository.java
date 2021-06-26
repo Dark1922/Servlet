@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import conneciton.SingleConnection;
 import model.ModelLogin;
@@ -16,9 +17,8 @@ public class DAOUsuarioRepository {
 	}
 
 	// nosso objeto modellogin	
-	public void gravarUsuario(ModelLogin objeto) throws Exception {
+	public ModelLogin gravarUsuario(ModelLogin objeto) throws Exception {
 		
-		try {
 		//nosso sql de salvar no banco de dados pelo insert sem id pq é gerado automaticamente
 		String sql = "insert into model_login(login, password, nome, email) values(?, ?, ?, ?);";
 		
@@ -28,16 +28,38 @@ public class DAOUsuarioRepository {
 		preparedStatement.setString(1, objeto.getLogin());
 		preparedStatement.setString(2, objeto.getPassword()); 
 		preparedStatement.setString(3, objeto.getNome());
-		preparedStatement.setString(4, objeto.getEmail());
+		preparedStatement.setString(4, objeto.getEmail()); //vai gravar
         
 		preparedStatement.execute(); //executar o sql	
-		connection.commit();
 		
-		}catch(Exception e) {
+		connection.commit(); //commitar no banco
+		
+		return this.consultaUsuario(objeto.getLogin()); //consultar o usuario pelo login e retorna pra gt
+		
 			
-			e.printStackTrace();
-		}
 
+	}
+	//vai retorna o model login
+	public ModelLogin consultaUsuario(String  login) throws Exception {
+		
+		ModelLogin modelLogin = new ModelLogin();
+		
+		//vai fazer uma consulta pelo parametro de login passado upper ignorando as case
+		String sql = "select * from model_login where upper(login) = upper('"+login+"')";
+		PreparedStatement statement  = connection.prepareStatement(sql);
+		
+	   ResultSet resultado = statement.executeQuery(); //retorna um result set
+	   
+	   while (resultado.next()) {//se tem resultado
+		   
+		   //vai preenchr esses dados e vai retorna 
+		     modelLogin.setId(resultado.getLong("id"));
+		     modelLogin.setEmail(resultado.getString("email"));
+		     modelLogin.setNome(resultado.getString("nome"));
+		     modelLogin.setLogin(resultado.getString("login"));
+		     modelLogin.setPassword(resultado.getString("password"));
+	   } 
+	   return modelLogin;
 	}
 
 }
