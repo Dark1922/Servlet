@@ -53,7 +53,7 @@
 															<input type="hidden" name="acao" id="acao" value="">
           												 
                                                             <div class="form-group form-default form-static-label">
-                                                                <input type="text" name="id" id="id" class="form-control"  readonly="readonly" disabled value="${modolLogin.id}">
+                                                                <input type="text" name="id" id="id" class="form-control"  readonly="readonly" disabled value="${modelLogin.id}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">ID:</label>
                                                             </div>
@@ -96,6 +96,7 @@
 											</div>
 										</div>  
 									</div>
+									<span style="color:red;">${msg}</span>
                                     <span style="color:green;">${ok}</span>
 								</div>
 								<!-- Page-body end -->

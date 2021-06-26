@@ -28,6 +28,8 @@ public class ServletUsuarioController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			
+			String msg = "Opera√ß√£o realizada com sucesso";
+			
 			String id = request.getParameter("id");// nome e id que vai pegar do formulario
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
@@ -36,20 +38,29 @@ public class ServletUsuarioController extends HttpServlet {
 
 			ModelLogin modelLogin = new ModelLogin();
 			
-			// id diferente de null e vazio ? se sim , passa o long com parse sen„o null
+			// id diferente de null e vazio ? se sim , passa o long com parse sen√£o null
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : 0);
 			modelLogin.setNome(nome);
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setPassword(password);
 			
-			//vai gravar e consultar o usuario na tela
+			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() != 0L) {
+				msg = "J√° existe usu√°rio com o mesmo login, informe outro login.";
+			
+			}else {
+				//vai gravar e consultar o usuario na tela
 		    modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+			}
+				
+			
+			
+			
 
 			// retorna pra mesma tela e retorna os dados que tinha escrevido
 			request.setAttribute("modelLogin", modelLogin); // seta os atributo mantem os dados na tela serv pra editar
 
-            request.setAttribute("ok", "OperaÁ„o realizada com sucesso");
+            request.setAttribute("ok", msg);
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			
 
