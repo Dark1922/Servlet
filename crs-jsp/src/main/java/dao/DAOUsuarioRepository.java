@@ -97,4 +97,18 @@ public class DAOUsuarioRepository {
 
 		return false;
 	}
+	
+	public void deletarUser(String idUser) throws Exception{
+		
+		String sql = "DELETE FROM model_login WHERE id = ?";
+		PreparedStatement preparesql = connection.prepareStatement(sql); //sql preparado com o delete
+		
+		preparesql.setLong(1, Long.parseLong(idUser)); //id do parametro excluido passando o delete
+		
+		//executeupdate usa pra inset update e delete , faz o delete
+		preparesql.executeUpdate();
+		
+		connection.commit(); //faz a alteração no banco
+		
+	}
 }

@@ -21,11 +21,37 @@ public class ServletUsuarioController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException {//método get ultilizado pra buscar e deletar mais
+		try {
+		//vamos pegar da requisição o get parameter
+		String acao = request.getParameter("acao");
+		
+		//diferente de null e vazio e ignorar a case sendo deletar
+		if (!acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+			
+			String idUser = request.getParameter("id"); //id do usuario
+			
+			daoUsuarioRepository.deletarUser(idUser); //método de delete criado
+			
+			request.setAttribute("ok", "Excluido com sucesso!"); //mensagem de delete
+			//redireciona pro usuario dps que exclui e a requisição e resposta
+			
+		}
+		//deletando ou não retorna pra mesma página
+		request.getRequestDispatcher("principal/usuario.jsp").forward(request, response); 
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redirecionar.forward(request, response);
+			
+		}
 	}
+		
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException {//doPost mais ultilizado para criar e atualizar
 		try {
 			
 			String msg = "Operação realizada com sucesso";
